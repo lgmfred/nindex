@@ -41,7 +41,11 @@ form(ID, Topic, Desc, Url) ->
     wf:defer(save_link, descriptor, #validate{validators=[
         #is_required{text="Descriptive text required"}]}),
     wf:defer(save_link, url, #validate{validators=[
-        #is_required{text="URL required"}]}),
+        #is_required{text="URL required"},
+        #custom{text="URL must be properly formed",
+                function=fun custom_validator/2,
+                tag=custom_validator_tag}
+    ]}),
     [
      #h3{text="Create or Edit Web Link"},
      #label{text="Topic"},
@@ -52,13 +56,19 @@ form(ID, Topic, Desc, Url) ->
      #textbox{id=url, text=Url},
      #br{},
      #button{
-        id=dave_link,
+        id=save_link,
         text="Save",
         postback={save, ID}
      },
      #link{style="margin-left: 10px", text="Cancel", url="/"}
     ].
 
+custom_validator(_Tag, Url) ->
+    case http_uri:parse(Url) of
+        {ok, _} -> true;
+        _ -> false
+    end.
+    
 event({save, Linkid}) ->
     save(Linkid).
 
