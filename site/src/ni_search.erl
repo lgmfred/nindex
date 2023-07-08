@@ -14,7 +14,8 @@ filter(SearchString, Weblink) ->
     sets:size(SharedWords) > 0.
 
 unique_words(String) ->
-    Tokens = string:lexemes(String, " "),
+    String1 = string:to_lower(String),
+    Tokens = string:lexemes(String1, " "),
     sets:from_list(Tokens).
 
 shared(S1, S2) ->
