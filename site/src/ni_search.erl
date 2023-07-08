@@ -7,7 +7,7 @@ search(SearchString) ->
 
 filter(SearchString, Weblink) ->
     Topic = ni_links:topic(Weblink),
-    Descriptor = ni_link:descriptor(Weblink),
+    Descriptor = ni_links:descriptor(Weblink),
     SearchWords = unique_words(SearchString),
     WeblinkWords = unique_words(Topic ++ " " ++ Descriptor),
     SharedWords = shared(SearchWords, WeblinkWords),
