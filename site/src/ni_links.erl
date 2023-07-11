@@ -12,7 +12,7 @@
           url/1,url/2
         ]).
 
--define(DB, ni_joedb).
+-define(DB, ni_dets).
 
 init_db() ->
     ?DB:init_db().
