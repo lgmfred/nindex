@@ -9,3 +9,4 @@ rebar
 releases/*
 joedb
 recompile.log
+dets_nindex
