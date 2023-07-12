@@ -12,7 +12,7 @@
           url/1,url/2
         ]).
 
--define(DB, ni_dets).
+-define(DB, ni_pgsql).
 
 init_db() ->
     ?DB:init_db().
