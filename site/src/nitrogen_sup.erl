@@ -22,6 +22,7 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
+    ni_links:init_db(),
     application:load(nitrogen_core),
     application:start(nitro_cache),
     application:start(crypto),
@@ -29,11 +30,4 @@ init([]) ->
     application:ensure_all_started(qdate),
     application:start(simple_bridge),
 
-    DetsSup = #{
-        id => ni_dets_sup,
-        start => {ni_dets_sup, start_link, []},
-        shutdown => 2000,
-        type => supervisor,
-        modules => [ni_dets_sup]
-    },
-    {ok, { {one_for_one, 5, 10}, [DetsSup]} }.
+    {ok, { {one_for_one, 5, 10}, []} }.
